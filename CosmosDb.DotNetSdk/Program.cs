@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CosmosDb.DotNetSdk;
+namespace CosmosDb.DotNetSdk
 {
 	public static class Program
 	{
