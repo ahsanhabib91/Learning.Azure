@@ -1,7 +1,7 @@
 ﻿using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 
-namespace CosmosDb.DotNetSdk.Demos;
+namespace CosmosDb.DotNetSdk.Demos
 {
 	public static class Shared
 	{
