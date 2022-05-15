@@ -4,7 +4,9 @@ using Microsoft.Extensions.Configuration;
 
 /*
  * https://docs.microsoft.com/en-us/azure/cosmos-db/sql/sql-api-get-started
+ * https://docs.microsoft.com/en-us/azure/cosmos-db/sql/sql-api-sdk-dotnet-standard
  * https://docs.microsoft.com/en-us/azure/cosmos-db/sql/sql-api-dotnet-v3sdk-samples
+ * https://github.com/Azure/azure-cosmos-dotnet-v3/tree/master/Microsoft.Azure.Cosmos.Samples/Usage
  */
 
 var configuration = new ConfigurationBuilder()
@@ -13,9 +15,9 @@ var configuration = new ConfigurationBuilder()
     .Build();
 
 // The Azure Cosmos DB endpoint for running this sample.
-var EndpointUri = configuration["EndpointUri"];
+var EndpointUri = configuration["CosmosEndpoint"];
 // The primary key for the Azure Cosmos account.
-var PrimaryKey = $@"{configuration["PrimaryKey"]}";
+var PrimaryKey = $@"{configuration["CosmosMasterKey"]}";
 
 // The Cosmos client instance
 CosmosClient cosmosClient;

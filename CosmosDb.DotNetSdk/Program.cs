@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CosmosDb.DotNetSdk
 {
-	public static class Program
+	public class Program
 	{
 		private static IDictionary<string, Func<Task>> DemoMethods;
 
