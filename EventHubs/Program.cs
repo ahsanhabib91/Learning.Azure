@@ -13,23 +13,21 @@ var configuration = new ConfigurationBuilder()
     .AddUserSecrets<Program>()
     .Build();
 
-// connection string to the Event Hubs namespace
-var connectionString = configuration["EventHubConnectionString"];
-// name of the event hub
-var eventHubName = configuration["EventHub"];
+var connectionString = configuration["EventHubConnectionString"]; // connection string to the Event Hubs namespace
+var eventHubName = configuration["EventHub"]; // name of the event hub
 
 var blobStorageConnectionString = configuration["StorageConnectionString"];
 var blobContainerName = configuration["BlobContainer"];
 
-//Sender sender = new Sender(connectionString, eventHubName);
-//await sender.SendEventAsync();
+Sender sender = new Sender(connectionString, eventHubName);
+await sender.SendEventAsync();
 
 //await Task.Delay(TimeSpan.FromSeconds(5));
 
 Console.WriteLine("=======================================================================================");
 
 Receiver receiver = new Receiver(connectionString, eventHubName, blobStorageConnectionString, blobContainerName);
-receiver.ReceiveEventAsync();
+await receiver.ReceiveEventAsync();
 
 
 await Task.Delay(TimeSpan.FromSeconds(3600));

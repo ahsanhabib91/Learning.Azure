@@ -35,13 +35,13 @@ public class Receiver
         processor.ProcessErrorAsync += ProcessErrorHandler;
     }
 
-    public async Task ReceiveEventAsync() 
+    public async Task ReceiveEventAsync()
     {
         // Start the processing
         await processor.StartProcessingAsync();
 
         // Wait for 30 seconds for the events to be processed
-        await Task.Delay(TimeSpan.FromSeconds(300));
+        //await Task.Delay(TimeSpan.FromSeconds(300));
 
         // Stop the processing
         // await processor.StopProcessingAsync();
@@ -51,39 +51,13 @@ public class Receiver
     {
         try
         {
-            // Write the body of the event to the console window
             string rawData = Encoding.UTF8.GetString(eventArgs.Data.Body.ToArray());
-            Console.WriteLine("\tReceived event: {0}", rawData);
-            //if (rawData.Contains("aabbcc112233"))
-            //{
-            //    Console.WriteLine("rawData --> "+ rawData);
-            //}
-            //else 
-            //{
-            //    Console.WriteLine($"Not Found");
-            //}
-            //var data = JsonConvert.DeserializeObject<DiaperSensor>(rawData);
-            //if (data.SensorId == "aabbcc112233")
-            //{
-            //    Console.WriteLine("raw -->" + JsonConvert.SerializeObject(rawData));
-            //    Console.WriteLine("JsonConvert --> " + JsonConvert.SerializeObject(data));
-            //}
-            //else
-            //{
-            //    Console.WriteLine($"Not Found --> {data.SensorId}");
-            //}
-            //Console.WriteLine($"SensorId: {data.SensorId} \n");
+            Console.WriteLine($"\t {DateTime.Now} --> Received event: {rawData}");
         }
         catch (Exception ex)
         {
             string rawData = Encoding.UTF8.GetString(eventArgs.Data.Body.ToArray());
             Console.WriteLine($"Unable to read data. ex.Message: {ex.Message}, rawData --> {rawData}");
-
-            //string rawData = Encoding.UTF8.GetString(eventArgs.Data.Body.ToArray());
-            //if (rawData.Contains("aabbcc112233"))
-            //{
-            //    Console.WriteLine(rawData);
-            //}
         }
         
 
