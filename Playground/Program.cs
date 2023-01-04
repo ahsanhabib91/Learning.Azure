@@ -1,10 +1,21 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿string text = "this is my message";
 
-var configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json")
-    .AddUserSecrets<Program>()
-    .Build();
+var result = Validate(text);
+Console.WriteLine($"IsValid: {result.isValid}, message: {result.message}");
 
-var connectionString = configuration["MyConfig"];
+(string msg, bool valid) = Validate(text);
+Console.WriteLine($"IsValid: {valid}, message: {msg}");
 
-Console.WriteLine(connectionString);
+(string message, _) = Validate(text);
+Console.WriteLine($"message: {message}");
+
+(string message, bool isValid) Validate(string message)
+{
+    if (message == "this is my message")
+    {
+        return (message, true);
+    } else
+    {
+        return (message, false);
+    }
+}

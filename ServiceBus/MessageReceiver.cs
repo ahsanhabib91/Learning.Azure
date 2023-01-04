@@ -13,10 +13,8 @@ public class MessageReceiver
         };
         processor = client.CreateProcessor(queueName, options);
 
-        // add handler to process messages
         processor.ProcessMessageAsync += MessageHandler;
 
-        // add handler to process any errors
         processor.ProcessErrorAsync += ErrorHandler;
     }
 
@@ -28,10 +26,8 @@ public class MessageReceiver
         };
         processor = client.CreateProcessor(topicName, subscriptionName, options);
 
-        // add handler to process messages
         processor.ProcessMessageAsync += MessageHandler;
 
-        // add handler to process any errors
         processor.ProcessErrorAsync += ErrorHandler;
     }
 
@@ -58,13 +54,11 @@ public class MessageReceiver
 
     public async Task ReceiveMessagesAsync()
     {
-        // start processing 
         await processor.StartProcessingAsync();
 
         Console.WriteLine("Wait for a minute and then press any key to end the processing");
         Console.ReadKey();
 
-        // stop processing 
         Console.WriteLine("\nStopping the receiver...");
         await processor.StopProcessingAsync();
         Console.WriteLine("Stopped receiving messages");

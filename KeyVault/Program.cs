@@ -1,6 +1,7 @@
 ﻿using Azure.Identity;
 using Azure.Security.KeyVault.Keys;
 using Azure.Security.KeyVault.Secrets;
+using KeyVault;
 using Microsoft.Extensions.Configuration;
 
 /*
@@ -40,30 +41,26 @@ var clientSecret = configuration["CLIENT_SECRET"];
 var keyVaultName = configuration["KEY_VAULT_NAME"];
 var kvUri = $"https://{keyVaultName}.vault.azure.net";
 
+var myKey = "test-key-2";
 
-/*
- * Managing Azure Key Vault Secret
- */
-var secretClient = new SecretClient(new Uri(kvUri), new DefaultAzureCredential());
-//var secretClient = new SecretClient(new Uri(kvUri), clientSecretCredential);
 
-var secretName = "MySecret";
-//await secretClient.SetSecretAsync(secretName, "Azure123");
-//Console.WriteLine("Secret has been set !!!");
-var secret = await secretClient.GetSecretAsync(secretName);
-Console.WriteLine($"Secret Value => {secret.Value.Value}");
+// var manageSecret = new ManageSecret(kvUri);
+// await manageSecret.GetSecret("MySecret");
 
-return;
 
-/*
- * Managing Azure Key Vault Keys
- */
-var keyClient = new KeyClient(new Uri(kvUri), new DefaultAzureCredential());
-//var keyClient = new KeyClient(new Uri(kvUri), clientSecretCredential);
+var manageKey = new ManageKey(kvUri);
+// await manageKey.GetKey("myKey");
 
-var keyName = "myKey";
-var createdKey = await keyClient.CreateKeyAsync(keyName, KeyType.Rsa);
-Console.WriteLine("Key has been set !!!");
-var key = await keyClient.GetKeyAsync(keyName);
-Console.WriteLine($"Key version is => {key.Value.Properties.Version}");
+var encryptedText = await manageKey.Encrypt(myKey, "A single block of plaintext");
+
+Console.WriteLine($"EncryptedText Text: {encryptedText}");
+
+var decryptedText = await manageKey.Decrypt(myKey, encryptedText);
+
+Console.WriteLine($"Decrypted Text: {decryptedText}");
+
+
+
+
+
 

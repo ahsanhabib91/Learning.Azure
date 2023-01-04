@@ -27,10 +27,11 @@ namespace Learning.EventHubs
 
             for (int i = 1; i <= numOfEvents; i++)
             {
-                var data = new Employee() { Id = Guid.NewGuid(), Message = $"Event {i}" };
+                var data = new { Id = Guid.NewGuid(), Message = $"Event {i}" };
                 //var jsonData = JsonConvert.SerializeObject(data);
                 var jsonData = JsonSerializer.Serialize(data);
-                if (!eventBatch.TryAdd(new EventData(Encoding.UTF8.GetBytes(jsonData))))
+                //if (!eventBatch.TryAdd(new EventData(Encoding.UTF8.GetBytes(jsonData))))
+                if (!eventBatch.TryAdd(new EventData(jsonData)))
                 {
                     throw new Exception($"Event {i} is too large for the batch and cannot be sent.");
                 }
@@ -47,11 +48,5 @@ namespace Learning.EventHubs
             }
 
         }
-    }
-
-    class Employee
-    {
-        public Guid Id { get; set; }
-        public string Message { get; set; }
     }
 }
