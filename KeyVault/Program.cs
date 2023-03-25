@@ -42,10 +42,10 @@ var clientSecret = configuration["CLIENT_SECRET"];
 var keyVaultName = configuration["KEY_VAULT_NAME"];
 var kvUri = $"https://{keyVaultName}.vault.azure.net";
 
-var myKey = Guid.NewGuid().ToString();
-Console.WriteLine($"KeyName: {myKey}");
+// var myKey = Guid.NewGuid().ToString();
+// Console.WriteLine($"KeyName: {myKey}");
 
-// var myKey = "eca118f1-6f35-42d8-9ee7-b000620e71b6";
+var myKey = "<my-key>";
 
 // Console.WriteLine(myKey);
 
@@ -72,12 +72,14 @@ catch (RequestFailedException ex) when (ex.Status == 404)
 
 // return;
 
-// var encryptedText = await manageKey.Encrypt(myKey, "A single block of plaintext");
-var encryptedText = await manageKey.Encrypt(myKey, null, tenantId, clientId, clientSecret);
+// var plainText = "A single block of plaintext";
+var plainText = "I am talking from Mac Machine";
+// var encryptedText = await manageKey.Encrypt(myKey, plainText);
+var encryptedText = await manageKey.Encrypt(myKey, plainText, tenantId, clientId, clientSecret);
 
 Console.WriteLine($"EncryptedText Text: {encryptedText}");
 
-// var testEncryptedText = "tIaO2qi9EIUe5nt0kdHqQOg72TDqnhOeYXCC9v5Pstsd4cFz/Hc6BOk/98cJ7X/EDhDSLmAYnquTrk0oZxbwG6gw3Dp4gjP07ajRx8Fai5/Qis6JJAVtroHFLAlVmFIepuknCXsrrx18gPDNYEXnh0eQgePWH/h4y7Q2FN4Nf9arG8VcB3WK8uqleXcIAkDw7MgwJG41pGqRbvvnJvc7yHh+HELdhnbQg+Wu7o6+tbtDCaH1WH2muDECSvHIALmbjI1wPNrV5gLHAXTqdxSHh+uGrAvkez0fzzEgPmJeBlu4Chw3Wr7B0ZuMzkpsCL8Lztdyc0Xy+6lLER1ICcHxUg==";
+// var testEncryptedText = "p6lW7AjtAq3220RewD+fJPOvnB3EpaJFNegY8iVMYjbVs6RDyANaEdi+HqJq+Vkiisq3Kk8Nyfpx+gdEIFhQAYBwtjSo11zHWiz1odW7/btdUKiYOJ3DVFLDTiLigJD1BcXIv9wfPF8S9S3Lt31tpdNis9gaFSDXWKTnLPWa0ynKGhoD7InTLnNm36zTAlwq2thcExwj8lWuqF0ygb/AYrifl4uE2tu4Fl+eX8zU/1O7ZycI2daHiga7j4YDWmemWx+jMY793gImtuQc+FkzEb1npG1icbO6bd+Vu4Ew0FmKhKozccB3ec6Q4CwoyKcXeFrx3Qs78/fMsMjNJCIudQ== ";
 
 // var decryptedText = await manageKey.Decrypt(myKey, encryptedText);
 var decryptedText = await manageKey.Decrypt(myKey, encryptedText, tenantId, clientId, clientSecret);

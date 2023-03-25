@@ -37,7 +37,7 @@ public class ManageKey
         var key = await _keyClient.GetKeyAsync(keyName);
         var cryptoClient = new CryptographyClient(key.Value.Id, new DefaultAzureCredential());
         byte[] plaintextAsByteArray = Encoding.UTF8.GetBytes(plainText);
-        EncryptResult encryptResult = await cryptoClient.EncryptAsync(EncryptionAlgorithm.RsaOaep, plaintextAsByteArray);
+        EncryptResult encryptResult = await cryptoClient.EncryptAsync(EncryptionAlgorithm.RsaOaep256, plaintextAsByteArray);
         // Console.WriteLine($"Encrypted data using the algorithm {encryptResult.Algorithm}, with key {encryptResult.KeyId}. The resulting encrypted data is {Convert.ToBase64String(encryptResult.Ciphertext)}");
         return Convert.ToBase64String(encryptResult.Ciphertext);
     }
@@ -47,7 +47,7 @@ public class ManageKey
         var key = await _keyClient.GetKeyAsync(keyName);
         var cryptoClient = new CryptographyClient(key.Value.Id, new DefaultAzureCredential());
         byte[] dataToDecryptAsByteArray = Convert.FromBase64String(encryptedText);
-        DecryptResult decryptResult = await cryptoClient.DecryptAsync(EncryptionAlgorithm.RsaOaep, dataToDecryptAsByteArray);
+        DecryptResult decryptResult = await cryptoClient.DecryptAsync(EncryptionAlgorithm.RsaOaep256, dataToDecryptAsByteArray);
         // Console.WriteLine($"Decrypted data using the algorithm {decryptResult.Algorithm}, with key {decryptResult.KeyId}. The resulting decrypted data is {Encoding.UTF8.GetString(decryptResult.Plaintext)}");
         return Encoding.UTF8.GetString(decryptResult.Plaintext);
     }
@@ -57,7 +57,7 @@ public class ManageKey
         var key = await _keyClient.GetKeyAsync(keyName);
         var cryptoClient = new CryptographyClient(key.Value.Id, new ClientSecretCredential(tenantId, clientId, clientSecret));
         byte[] plaintextAsByteArray = Encoding.UTF8.GetBytes(plainText);
-        EncryptResult encryptResult = await cryptoClient.EncryptAsync(EncryptionAlgorithm.RsaOaep, plaintextAsByteArray);
+        EncryptResult encryptResult = await cryptoClient.EncryptAsync(EncryptionAlgorithm.RsaOaep256, plaintextAsByteArray);
         // Console.WriteLine($"Encrypted data using the algorithm {encryptResult.Algorithm}, with key {encryptResult.KeyId}. The resulting encrypted data is {Convert.ToBase64String(encryptResult.Ciphertext)}");
         return Convert.ToBase64String(encryptResult.Ciphertext);
     }
@@ -67,7 +67,7 @@ public class ManageKey
         var key = await _keyClient.GetKeyAsync(keyName);
         var cryptoClient = new CryptographyClient(key.Value.Id, new ClientSecretCredential(tenantId, clientId, clientSecret));
         byte[] dataToDecryptAsByteArray = Convert.FromBase64String(encryptedText);
-        DecryptResult decryptResult = await cryptoClient.DecryptAsync(EncryptionAlgorithm.RsaOaep, dataToDecryptAsByteArray);
+        DecryptResult decryptResult = await cryptoClient.DecryptAsync(EncryptionAlgorithm.RsaOaep256, dataToDecryptAsByteArray);
         // Console.WriteLine($"Decrypted data using the algorithm {decryptResult.Algorithm}, with key {decryptResult.KeyId}. The resulting decrypted data is {Encoding.UTF8.GetString(decryptResult.Plaintext)}");
         return Encoding.UTF8.GetString(decryptResult.Plaintext);
     }
